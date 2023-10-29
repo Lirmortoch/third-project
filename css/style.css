@@ -100,13 +100,13 @@ body {
   margin: 100px 0px;
 }
 .form__input {
-  width: 80vw;
+  width: 60vw;
+  min-width: 700px;
   height: 80px;
   border: 2px solid black;
   border-radius: 15px;
   padding-left: 15px;
   font-size: 1.5em;
-  min-width: 700px;
 }
 .form__button {
   position: absolute;
@@ -121,29 +121,33 @@ body {
 }
 
 .grid {
-  width: 85%;
+  width: 60%;
+  min-width: 700px;
   display: grid;
   grid-template-columns: repeat(2, minmax(100px, 1fr));
   grid-auto-rows: 40px;
   grid-auto-flow: dense;
 }
-
 .grid__element {
   padding-top: 4px;
   font-size: 1.5em;
   color: black;
   background-color: #dbdbdb;
-  border-bottom: 1px solid black;
 }
-
 .grid__element:nth-child(odd) {
   border-right: 2px solid black;
 }
-
 .grid__element:nth-child(1) {
   border-top-left-radius: 10px;
 }
-
 .grid__element:nth-child(2) {
   border-top-right-radius: 10px;
+}
+.grid__element_text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.grid__element_border {
+  border-top: 1px solid black;
 }
