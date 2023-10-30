@@ -37,21 +37,7 @@ function typeOfCount() {
     return typeof count;
 }
 
-function createGridElement() {  
-    let gridElement = document.createElement("div");  
-    let gridTransElement = document.createElement("div");
-
-    let text = document.createElement("p");
-    let transText = document.createElement("p");
-
-    text.appendChild(document.createTextNode(input.value));
-    transText.appendChild(document.createTextNode(transliterate(input.value)));
-
-    transText.classList.add("grid__element_text");
-    
-    gridElement.appendChild(text);
-    gridTransElement.appendChild(transText);
-
+function addStyle (gridElement, gridTransElement) {
     if (count > 1 && typeOfCount() === "number") {
         gridElement.classList.add("grid__element","grid__element_border");
         gridTransElement.classList.add("grid__element","grid__element_border");
@@ -60,13 +46,75 @@ function createGridElement() {
         gridElement.classList.add("grid__element");
         gridTransElement.classList.add("grid__element");
     }
+    count+=1;
+}
 
+function addGridElement(gridElement, gridTransElement, text, transText) {
+    text.appendChild(document.createTextNode(input.value));
+    transText.appendChild(document.createTextNode(transliterate(input.value)));
+
+    transText.classList.add("grid__element_text");
+    
+    gridElement.appendChild(text);
+    gridTransElement.appendChild(transText);
+
+    addStyle(gridElement, gridTransElement);
+    
     grid.appendChild(gridElement);
     grid.appendChild(gridTransElement);
 
     input.value = "";
+}
 
-    count+=1;
+function createGridElement() {  
+    let gridElement = document.createElement("div");  
+    let gridTransElement = document.createElement("div");
+
+    let text = document.createElement("p");
+    let transText = document.createElement("p");
+
+    addGridElement(gridElement, gridTransElement, text, transText);
+}
+
+////////////////////
+/*
+    старый вариант
+    function createGridElement() {  
+        let gridElement = document.createElement("div");  
+        let gridTransElement = document.createElement("div");
+
+        let text = document.createElement("p");
+        let transText = document.createElement("p");
+
+        text.appendChild(document.createTextNode(input.value));
+        transText.appendChild(document.createTextNode(transliterate(input.value)));
+
+        transText.classList.add("grid__element_text");
+        
+        gridElement.appendChild(text);
+        gridTransElement.appendChild(transText);
+
+        if (count > 1 && typeOfCount() === "number") {
+            gridElement.classList.add("grid__element","grid__element_border");
+            gridTransElement.classList.add("grid__element","grid__element_border");
+        }
+        else {
+            gridElement.classList.add("grid__element");
+            gridTransElement.classList.add("grid__element");
+        }
+
+        grid.appendChild(gridElement);
+        grid.appendChild(gridTransElement);
+
+        input.value = "";
+
+        count+=1;
+    }
+*/
+///////////////////
+
+function clearGrid() {
+
 }
 
 function addElementAfterClick() {
