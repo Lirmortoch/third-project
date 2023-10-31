@@ -27,6 +27,8 @@ function transliterate(word){
 let button = document.querySelector(".form__button");
 let input = document.getElementById("text_tr1");
 let grid = document.querySelector(".grid");
+let deleteButton = document.querySelector(".delete-button");
+
 let count = 1;
 
 function inputLength() {
@@ -37,7 +39,7 @@ function typeOfCount() {
     return typeof count;
 }
 
-function addStyle (gridElement, gridTransElement) {
+function addStyle(gridElement, gridTransElement, transText) {
     if (count > 1 && typeOfCount() === "number") {
         gridElement.classList.add("grid__element","grid__element_border");
         gridTransElement.classList.add("grid__element","grid__element_border");
@@ -46,6 +48,11 @@ function addStyle (gridElement, gridTransElement) {
         gridElement.classList.add("grid__element");
         gridTransElement.classList.add("grid__element");
     }
+
+    let width = "width: " + (inputLength() + 110) + "px";
+    transText.setAttribute("style", width);
+    transText.classList.add("grid__element_text");
+
     count+=1;
 }
 
@@ -53,12 +60,10 @@ function addGridElement(gridElement, gridTransElement, text, transText) {
     text.appendChild(document.createTextNode(input.value));
     transText.appendChild(document.createTextNode(transliterate(input.value)));
 
-    transText.classList.add("grid__element_text");
-    
     gridElement.appendChild(text);
     gridTransElement.appendChild(transText);
 
-    addStyle(gridElement, gridTransElement);
+    addStyle(gridElement, gridTransElement, transText);
     
     grid.appendChild(gridElement);
     grid.appendChild(gridTransElement);
@@ -76,47 +81,6 @@ function createGridElement() {
     addGridElement(gridElement, gridTransElement, text, transText);
 }
 
-////////////////////
-/*
-    старый вариант
-    function createGridElement() {  
-        let gridElement = document.createElement("div");  
-        let gridTransElement = document.createElement("div");
-
-        let text = document.createElement("p");
-        let transText = document.createElement("p");
-
-        text.appendChild(document.createTextNode(input.value));
-        transText.appendChild(document.createTextNode(transliterate(input.value)));
-
-        transText.classList.add("grid__element_text");
-        
-        gridElement.appendChild(text);
-        gridTransElement.appendChild(transText);
-
-        if (count > 1 && typeOfCount() === "number") {
-            gridElement.classList.add("grid__element","grid__element_border");
-            gridTransElement.classList.add("grid__element","grid__element_border");
-        }
-        else {
-            gridElement.classList.add("grid__element");
-            gridTransElement.classList.add("grid__element");
-        }
-
-        grid.appendChild(gridElement);
-        grid.appendChild(gridTransElement);
-
-        input.value = "";
-
-        count+=1;
-    }
-*/
-///////////////////
-
-function clearGrid() {
-
-}
-
 function addElementAfterClick() {
 	if (inputLength() > 0 ) {
 		createGridElement();
@@ -129,6 +93,16 @@ function addElementAfterPress(event) {
 	}
 }
 
+function clearGrid() {
+    while(grid.firstChild) {
+        grid.removeChild(grid.firstChild);
+    }
+
+    count = 1;
+}
+
 button.addEventListener("click", addElementAfterClick )
 
 input.addEventListener("keypress", addElementAfterPress)
+
+deleteButton.addEventListener("click", clearGrid);
